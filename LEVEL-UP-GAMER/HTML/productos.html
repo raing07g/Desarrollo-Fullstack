@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Productos | Level-Up Gamer</title>
+    <link rel="stylesheet" href="../CSS/estilos.css">
+</head>
+
+<body>
+
+<header>
+    <h2>LEVEL-UP GAMER</h2>
+
+    <nav>
+        <a href="index.html">Inicio</a>
+        <a href="productos.html">Productos</a>
+        <a href="registro.html">Registrarse</a>
+        <a href="contacto.html">Contacto</a>
+    </nav>
+</header>
+
+<main>
+
+    <section>
+        <h1>NUESTROS PRODUCTOS</h1>
+        <p>Encuentra productos para mejorar tu experiencia gamer.</p>
+    </section>
+
+    <!-- CARRITO DE COMPRAS -->
+    <section id="carrito-seccion" style="background: #151515; padding: 20px; border-radius: 10px; margin-top: 40px;">
+        <h2>Tu Carrito</h2>
+        <ul id="lista-carrito" style="list-style: none; padding: 0;"></ul>
+        <h3 style="color: #39ff14; margin-top: 20px;">Total: $<span id="total-carrito">0</span></h3>
+    </section>
+
+    <section class="productos">
+
+        <article class="producto">
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRGZhtw9oWeYAg9xc3SzbAGH9KWL-6tBeZg8_NHXIE7PQ&s=10" alt="PlayStation 5">
+            <h3>PlayStation 5</h3>
+            <p>Consola de última generación.</p>
+            <strong>$549.990</strong>
+            <button class="agregar" data-nombre="PlayStation 5">Agregar</button>
+        </article>
+
+        <article class="producto">
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSHGITWO1AvFZzl14sQEQcjuNPvvZWQ0hbCFsM2p3XZzw&s=10" alt="Mouse Gamer">
+            <h3>Mouse Gamer Logitech G502 HERO</h3>
+            <p>Mouse de alta precisión.</p>
+            <strong>$49.990</strong>
+            <button class="agregar" data-nombre="Mouse Gamer">Agregar</button>
+        </article>
+
+        <article class="producto">
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSrUZeHlMmKS3zt7J6srJe4ZZlAMmzpXdRx9t2jfpbj3Q&s=10" alt="Headset Gamer">
+            <h3>Headset Gamer</h3>
+            <p>Sonido de calidad para tus partidas.</p>
+            <strong>$39.990</strong>
+            <button class="agregar" data-nombre="Headset Gamer">Agregar</button>
+        </article>
+
+    </section>
+
+</main>
+
+<footer>
+    <p>© 2026 Level-Up Gamer</p>
+</footer>
+
+<script src="../JS/script.js"></script>
+
+</body>
+</html>
