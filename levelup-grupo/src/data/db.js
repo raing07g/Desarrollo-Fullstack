@@ -1,6 +1,5 @@
 // src/data/db.js
 
-// Lista inicial de productos con las imágenes configuradas
 export const productosIniciales = [
   {
     id: 1,
@@ -56,8 +55,6 @@ export const productosIniciales = [
 
 const DB_KEY = "levelup_gamer_productos";
 
-// --- OPERACIONES CRUD ---
-
 // Read: Obtener todos los productos
 export const getProductos = () => {
   const data = localStorage.getItem(DB_KEY);
@@ -67,6 +64,9 @@ export const getProductos = () => {
   }
   return JSON.parse(data);
 };
+
+// Aliases para compatibilidad con Categorias.jsx y otras vistas
+export const obtenerProductos = getProductos;
 
 // Create: Agregar un nuevo producto
 export const agregarProducto = (nuevoProducto) => {
