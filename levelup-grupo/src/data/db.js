@@ -1,53 +1,96 @@
-const PRODUCTOS_INICIALES = [
-  { id: 1, nombre: "The Legend of Zelda", precio: 59990, categoria: "Nintendo", oferta: false, stock: 15, imagen: "https://via.placeholder.com/400x300" },
-  { id: 2, nombre: "Super Mario Odyssey", precio: 49990, categoria: "Nintendo", oferta: true, stock: 10, imagen: "https://via.placeholder.com/400x300" },
-  { id: 3, nombre: "Minecraft", precio: 26950, categoria: "PC", oferta: false, stock: 25, imagen: "https://via.placeholder.com/400x300" },
-  { id: 4, nombre: "Red Dead Redemption 2", precio: 39990, categoria: "PlayStation", oferta: true, stock: 8, imagen: "https://via.placeholder.com/400x300" },
-  { id: 5, nombre: "Elden Ring", precio: 54990, categoria: "PlayStation", oferta: false, stock: 12, imagen: "https://via.placeholder.com/400x300" }
+// src/data/db.js
+
+// Lista inicial de productos con las imágenes configuradas
+export const productosIniciales = [
+  {
+    id: 1,
+    nombre: "The Legend of Zelda: Tears of the Kingdom",
+    precio: 64990,
+    categoria: "Juegos",
+    oferta: true,
+    descuento: 10,
+    descripcion: "Aventura épica de exploración en el reino de Hyrule.",
+    imagen: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSRBK93HhQLCbI_vIc5dkXdcsAUPn7kCFdPA59sbk_ZVw&s=10"
+  },
+  {
+    id: 2,
+    nombre: "Super Mario Bros. Wonder",
+    precio: 54990,
+    categoria: "Juegos",
+    oferta: false,
+    descuento: 0,
+    descripcion: "Diversión clásica de plataformas en 2D con sorpresas mágicas.",
+    imagen: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSxPKsOAwXP0RYvsk2rUAX27FvCCQhdRZxhm8jpq0N05A&s=10"
+  },
+  {
+    id: 3,
+    nombre: "Minecraft",
+    precio: 29990,
+    categoria: "Juegos",
+    oferta: true,
+    descuento: 15,
+    descripcion: "Construye, explora y sobrevive en mundos infinitos.",
+    imagen: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcREPZlTnbiICEOVa7qm_djlgy_9HqJy57FfInvVKg_P9A&s=10"
+  },
+  {
+    id: 4,
+    nombre: "Red Dead Redemption 2",
+    precio: 49990,
+    categoria: "Juegos",
+    oferta: false,
+    descuento: 0,
+    descripcion: "Una historia épica sobre la vida en el corazón de EE. UU.",
+    imagen: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSz5VUL0rswkka6NA8DU7n53xwnTTMr0ExasMSBKUwVsA&s=10"
+  },
+  {
+    id: 5,
+    nombre: "Elden Ring",
+    precio: 59990,
+    categoria: "Juegos",
+    oferta: true,
+    descuento: 20,
+    descripcion: "RPG de acción en un vasto mundo abierto de fantasía oscura.",
+    imagen: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR-Pqsm_PMKWVq3oNjXCyx6leE7I4dfYUDKXLPgDs6aaA&s=10"
+  }
 ];
 
-const inicializarDB = () => {
-  if (!localStorage.getItem("levelup_productos")) {
-    localStorage.setItem("levelup_productos", JSON.stringify(PRODUCTOS_INICIALES));
+const DB_KEY = "levelup_gamer_productos";
+
+// --- OPERACIONES CRUD ---
+
+// Read: Obtener todos los productos
+export const getProductos = () => {
+  const data = localStorage.getItem(DB_KEY);
+  if (!data) {
+    localStorage.setItem(DB_KEY, JSON.stringify(productosIniciales));
+    return productosIniciales;
   }
+  return JSON.parse(data);
 };
 
-export const obtenerProductos = () => {
-  inicializarDB();
-  return JSON.parse(localStorage.getItem("levelup_productos")) || [];
-};
-
-// READ (Leer por ID)
-export const obtenerProductoPorId = (id) => {
-  const productos = obtenerProductos();
-  return productos.find((p) => p.id === Number(id));
-};
-
+// Create: Agregar un nuevo producto
 export const agregarProducto = (nuevoProducto) => {
-  const productos = obtenerProductos();
-  const productoConId = {
-    ...nuevoProducto,
-    id: Date.now(),
-    precio: Number(nuevoProducto.precio),
-    stock: Number(nuevoProducto.stock)
-  };
-  const listaActualizada = [...productos, productoConId];
-  localStorage.setItem("levelup_productos", JSON.stringify(listaActualizada));
-  return listaActualizada;
+  const productos = getProductos();
+  const productoConId = { ...nuevoProducto, id: Date.now() };
+  const actualizados = [...productos, productoConId];
+  localStorage.setItem(DB_KEY, JSON.stringify(actualizados));
+  return actualizados;
 };
 
-export const actualizarProducto = (id, productoActualizado) => {
-  const productos = obtenerProductos();
-  const listaActualizada = productos.map((p) =>
-    p.id === Number(id) ? { ...p, ...productoActualizado, precio: Number(productoActualizado.precio) } : p
+// Update: Actualizar un producto existente
+export const actualizarProducto = (id, datosActualizados) => {
+  const productos = getProductos();
+  const actualizados = productos.map((prod) =>
+    prod.id === id ? { ...prod, ...datosActualizados } : prod
   );
-  localStorage.setItem("levelup_productos", JSON.stringify(listaActualizada));
-  return listaActualizada;
+  localStorage.setItem(DB_KEY, JSON.stringify(actualizados));
+  return actualizados;
 };
 
+// Delete: Eliminar un producto por ID
 export const eliminarProducto = (id) => {
-  const productos = obtenerProductos();
-  const listaActualizada = productos.filter((p) => p.id !== Number(id));
-  localStorage.setItem("levelup_productos", JSON.stringify(listaActualizada));
-  return listaActualizada;
+  const productos = getProductos();
+  const actualizados = productos.filter((prod) => prod.id !== id);
+  localStorage.setItem(DB_KEY, JSON.stringify(actualizados));
+  return actualizados;
 };
